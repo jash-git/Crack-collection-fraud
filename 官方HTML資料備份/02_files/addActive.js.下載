@@ -1,0 +1,47 @@
+define(function(){
+	
+	function main(env, opt, file){
+
+		var $set = {
+				debug: false,
+				activeClass: 'run-animate',
+				originalClass: 'ready-animate'
+			}
+
+		$.extend($set, opt);
+		
+		var $body = $('html,body'),
+			$window = $(window),
+			$window_h = $window.height(),
+			$targets = $('.'+ $set.originalClass );
+
+		var $window_t = $window.scrollTop();
+
+		$window.on('scroll', function(evt){
+
+			$window_t = $window.scrollTop();
+			$window_h = $window.height();
+
+			$targets.each(function(i, n){
+				var $this = $(this),
+					$this_o = $this.offset(),
+					$this_t = $this_o.top;
+
+				if( $window_t + ( $window_h * 0.9 ) > $this_t ) {
+					$this.addClass($set.activeClass);
+					$this.removeClass($set.originalClass);
+
+					$targets = $('.'+ $set.originalClass );
+				}
+			});
+
+		}).scroll();
+
+		if($set.debug) {
+			console.log('預設值:', $set);
+			console.log('檔案 '+ file +'.js 已順利執行。');
+		}
+	}
+	
+	return main;
+});

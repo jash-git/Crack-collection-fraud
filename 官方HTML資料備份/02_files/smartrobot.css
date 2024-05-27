@@ -1,0 +1,146 @@
+.startbutton, .startbutton:active {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.startbutton {
+    display: block;
+    position: relative;
+    width: var(--startButtonSize);
+    height: var(--startButtonSize);
+    z-index: 102;
+    font: 0/0 a;
+}
+.startbutton:focus{
+    outline-width: 3px;
+    outline-style: dashed;
+    outline-color: #fc0;
+}
+    .startbutton.open-icon::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url(./a2800e6aee3c95b404e9f87fe5f621e5.gif);
+        background-size: cover;
+    }
+
+    .startbutton.close-icon::before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        left: calc(50% - 10px);
+        top: calc(50% - 10px);
+        background-image: url(./9e3054b11de69baff6c3c530383ea8aa.png);
+        background-size: cover;
+        animation: toSmall .25s cubic-bezier(0,.96,.53,1.28);
+    }
+
+:root {
+    --startButtonSize: 105px;
+}
+
+@keyframes toSmall {
+    0% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 800px) {
+    .startbutton {
+        width: 74px;
+        height: 74px;
+    }
+}
+
+.smartrobotembed {
+    position: relative;
+    border-radius: 16px;
+    width: 24em;
+    height: 31em;
+    max-height: 95vh;
+    overflow: hidden;
+    border: rgb(204, 204, 204) 1px solid;
+}
+
+    .smartrobotembed iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .smartrobotembed.hide {
+        display: none;
+    }
+
+.tooltip {
+    position: relative;
+}
+
+    .tooltip .tooltiptext {
+        box-sizing: border-box;
+        visibility: hidden;
+        bottom: 104%;
+        width: 108%;
+        left: -4%;
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+        border-radius: 12px;
+        padding: 4px 6px;
+        font-size: 0;
+        line-height: 25px;
+        white-space: nowrap;
+        position: absolute;
+        z-index: 1;
+        border: rgb(204, 204, 204) 1px solid;
+        transition: visibility 0s 1s;
+    }
+
+    .tooltip:hover .tooltiptext {
+        transition: visibility 0s .5s;
+        visibility: visible;
+    }
+
+@media (max-width: 800px) {
+    .tooltip .tooltiptext {
+        white-space: normal;
+        left: -10%;
+        width: 120%;
+    }
+}
+
+.smartrobotembed_app {
+    position: fixed;
+    bottom: var(--appBottom);
+    right: var(--appRight);
+    z-index: 501;
+}
+
+    .smartrobotembed_app .smartrobotembed_container {
+        position: fixed;
+        left: calc(1.5em + 8px + 150px - 40px);
+        bottom: var(--gapSize);
+    }
+
+:root {
+    --appLeft: 1.5em;
+    --appBottom: 10%;
+    --gapSize: 8px;
+    --appRight: 1.5em;
+}

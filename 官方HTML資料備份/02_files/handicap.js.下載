@@ -1,0 +1,113 @@
+define(['getNode'], function(getNode){
+	
+	function main(file){
+
+		var $set = {
+				debug: false
+			}
+        
+        //取代系統頁的字級標題
+        for ( i=0; i < 7; i++){
+            $('.page-caption-p h'+ i).replaceWith(function(){
+                return '<span class=h'+ i + '>' + $(this).html() + "</span>";
+            });
+        }
+
+
+        $('.CCMS_SearchBtn').attr('role', 'button');
+        // $('.area-form.search').find('.advanced').find('a').attr('role', 'button');
+        $('.base-footer').find('hd').find('a').attr('role', 'button');
+        $('.list-text.jump-tool').find('a').attr('role', 'button');
+        $('.subscription').find('input:submit').attr('role', 'button');
+        $('.area-form.page-search').find('input:submit').attr('role', 'button');
+
+        var $circle = $('.marquee-circle');
+
+        if($circle.length > 0){
+            $circle.each(function(){
+
+                var $this = $(this);
+
+                var $circle_in = getNode.getCtIn($this),
+                    $circle_ul = $circle_in.children('ul'),
+                    $circle_li = $circle_ul.children('li');
+
+
+                $circle_li.each(function(){
+                    $(this).find('a').find('img').attr('alt', '');
+
+                    var $title = $(this).find('a').attr('title'),
+                        $title_blank = $title.split('[');
+
+                    if ($title_blank.length != 0) {
+                        $title_text = $title_blank[0].replace('點擊前往', '').replace('Click to go', '').trim();
+                    }
+
+                    $(this).find('a').append('<div class="caption">' + $title_text + '</div>');
+                });
+            });
+        }
+
+        // $('.area-editor.user-edit').find('span').each(function(){
+
+        //     if($(this).css('color')!='red'){
+        //         $(this).css('color','#d20000');
+        //     }
+        // })
+        
+        //移除行內使用絕對單位的字級樣式
+
+		function ReplaceFS (t) {
+    
+
+            if ($(t).length > 0) {
+                var $tag = $(t);
+                
+                for (i = 0; i < $tag.length; i++) {
+            
+                if ($tag.eq(i).attr('style') != undefined)
+                {
+                    var repx = new RegExp('font-size:[^;\']*px(;)?','g');
+                    var rept = new RegExp('font-size:[^;\']*pt(;)?','g');
+                    var $style = $tag.eq(i).attr('style');
+                    $style = $style.replace(repx, '').replace(rept, '');
+                            $tag.eq(i).attr('style', $style);
+                    }
+                }
+            }
+        }
+            
+        ReplaceFS('strong');
+        ReplaceFS('span');
+        ReplaceFS('br');
+        ReplaceFS('h3');
+        ReplaceFS('h4');
+        ReplaceFS('h5');
+        ReplaceFS('h6');
+        ReplaceFS('img');
+        ReplaceFS('section');
+        ReplaceFS('div');
+        ReplaceFS('a');
+        ReplaceFS('font');
+        ReplaceFS('b');
+        ReplaceFS('table');
+        ReplaceFS('th');
+        ReplaceFS('td');
+        ReplaceFS('tr');
+        ReplaceFS('hr');
+        ReplaceFS('ol');
+        ReplaceFS('ul');
+        ReplaceFS('li');
+        ReplaceFS('p');
+        ReplaceFS('i');
+        ReplaceFS('hr');
+        ReplaceFS('pre');
+
+		if($set.debug) {
+			console.log('預設值:', $set);
+			console.log('檔案 '+ file +'.js 已順利執行。');
+		}
+	}
+	
+	return main;
+});
